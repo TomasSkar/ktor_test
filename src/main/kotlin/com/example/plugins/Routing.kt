@@ -6,14 +6,27 @@ import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ApiStartupResponse(
+    val status: String,
+    val version: String
+)
 
 fun Application.configureRouting() {
     routing {
-        route("/"){
-            get { call.respond(status = HttpStatusCode.OK,"api" to "ok") }
+        // Default
+        route("/") {
+            get {
+                call.respond(
+                    ApiStartupResponse(
+                        status = "OK",
+                        version = "1.0.0"
+                    )
+                )
+            }
         }
-        customerRouting()
-        orderRoutes()
         personRoutes()
     }
 }
