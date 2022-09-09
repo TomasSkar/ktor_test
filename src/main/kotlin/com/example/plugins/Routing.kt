@@ -1,9 +1,7 @@
 package com.example.plugins
 
-import com.example.PersonService
 import com.example.routes.*
 import io.ktor.server.routing.*
-import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import kotlinx.serialization.Serializable
@@ -28,5 +26,7 @@ fun Application.configureRouting() {
             }
         }
         personRoutes()
+        questionRoutes()
+        questionsRoutes()
     }
 }
