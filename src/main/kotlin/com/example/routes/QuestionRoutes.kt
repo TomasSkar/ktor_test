@@ -6,6 +6,7 @@ import com.example.data.QuestionsRepository
 import com.example.databaseErrorRespond
 import com.example.isValid
 import com.example.models.*
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -21,8 +22,13 @@ fun Route.questionRoutes() {
         post("/choose") {
             val questionRequest = call.receive<PostChooseQuestionRequest>()
             if(questionRequest.isValid()){
-                val postResult = questionsRepository.postNewChooseQuestion(questionRequest)
-                postResult?.let { call.respond(postResult) } ?: call.databaseErrorRespond()
+                when(val postResult = questionsRepository.postNewChooseQuestion(questionRequest)){
+                    is Result.Failure -> call.respond(
+                        status = postResult.code ?: HttpStatusCode.ExpectationFailed,
+                        message = postResult.error ?: "Error in server"
+                    )
+                    is Result.Success -> call.respond(postResult.value)
+                }
             } else {
                 call.badRequestRespond()
             }
@@ -31,8 +37,13 @@ fun Route.questionRoutes() {
         post("/multi"){
             val questionRequest = call.receive<PostMultiQuestionRequest>()
             if(questionRequest.isValid()){
-                val postResult = questionsRepository.postNewMultiQuestion(questionRequest)
-                postResult?.let { call.respond(postResult) } ?: call.databaseErrorRespond()
+                when(val postResult = questionsRepository.postNewMultiQuestion(questionRequest)){
+                    is Result.Failure -> call.respond(
+                        status = postResult.code ?: HttpStatusCode.ExpectationFailed,
+                        message = postResult.error ?: "Error in server"
+                    )
+                    is Result.Success -> call.respond(postResult.value)
+                }
             } else {
                 call.badRequestRespond()
             }
