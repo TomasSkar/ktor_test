@@ -1,0 +1,6 @@
+
+
+Asker is removed, because logic will be:
+ return to app all question and filer everything by that
+ - asker saves answered questions ID's in device and could look in history
+ - Answer section will show all question besides asker answered questions

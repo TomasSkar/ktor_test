@@ -7,7 +7,7 @@ import com.example.plugins.*
 fun main() {
     embeddedServer(Netty, port = 8082, host = "0.0.0.0") {
         configureSerialization()
-        configureRouting()
         setupKoin()
+        configureRouting()
     }.start(wait = true)
 }

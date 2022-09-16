@@ -12,18 +12,6 @@ suspend fun ApplicationCall.badRequestRespond() {
     )
 }
 
-suspend fun ApplicationCall.databaseErrorRespond(message: String? = null) {
-    respond(
-        status = HttpStatusCode.ExpectationFailed,
-        message = message ?: ErrorResponse.DATABASE_ERROR
-    )
-}
-
-fun ApplicationCall.askerIdOrNull(): String? {
-    val name = parameters["askerId"].toString()
-    return name.ifBlank { return null }
-}
-
 fun PostChooseQuestionRequest.isValid(): Boolean {
     return askerId.isNotBlank() && question.isNotBlank()
 }

@@ -2,9 +2,10 @@ package com.example.models
 
 import kotlinx.serialization.Serializable
 
-enum class PostChooseQuestionAnswerType{
+enum class PostChooseQuestionAnswerType {
     YES, NO
 }
+
 @Serializable
 data class PostChooseQuestionAnswerRequest(
     val askerId: String,
