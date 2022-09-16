@@ -1,0 +1,1 @@
+web: ./build/install/ktor-test-project/bin/ktor-test-project

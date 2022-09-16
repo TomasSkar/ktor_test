@@ -5,7 +5,7 @@ import io.ktor.server.netty.*
 import com.example.plugins.*
 
 fun main() {
-    embeddedServer(Netty, port = 8082, host = "0.0.0.0") {
+    embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
         configureSerialization()
         setupKoin()
         configureRouting()
